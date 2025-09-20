@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Security System - Advanced Prompt Injection Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shield-alt"></i> LLM Security System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#analyzer">Analyzer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metrics">Metrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/architecture">Architecture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/technical">Technical</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="hero-section text-center">
+                    <h1 class="display-4 mb-3">Advanced LLM Security System</h1>
+                    <p class="lead mb-4">Real-time detection of prompt injection and jailbreaking attacks using hybrid machine learning</p>
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-brain feature-icon"></i>
+                                <h5>TF-IDF Vectorization</h5>
+                                <p>N-gram feature extraction with advanced text analysis</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-tree feature-icon"></i>
+                                <h5>Random Forest Classifier</h5>
+                                <p>Calibrated supervised detection of known attack patterns</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-search feature-icon"></i>
+                                <h5>Isolation Forest</h5>
+                                <p>Unsupervised anomaly detection for novel threats</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prompt Analyzer Section -->
+        <div class="row mb-5" id="analyzer">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-microscope"></i> Real-time Prompt Analysis</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="promptInput" class="form-label">Enter Prompt to Analyze:</label>
+                                    <textarea class="form-control" id="promptInput" rows="5" 
+                                              placeholder="Type your prompt here for security analysis..."></textarea>
+                                </div>
+                                <button class="btn btn-primary btn-lg" onclick="analyzePrompt()">
+                                    <i class="fas fa-play"></i> Analyze Prompt
+                                </button>
+                                <div id="loadingSpinner" class="d-none mt-3">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Analyzing...</span>
+                                    </div>
+                                    <span class="ms-2">Analyzing prompt...</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="resultsPanel" class="d-none">
+                                    <h5>Analysis Results</h5>
+                                    <div id="threatLevel" class="alert mb-3"></div>
+                                    <div id="classification" class="mb-3"></div>
+                                    <div id="confidenceScore" class="mb-3"></div>
+                                    <div id="anomalyDetection" class="mb-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualizations Section -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-chart-bar"></i> Feature Importance</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="featureChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-chart-pie"></i> Confidence Distribution</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="confidenceChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics Section -->
+        <div class="row mb-5" id="metrics">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> System Performance Metrics</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="metricsCards">
+                            <!-- Metrics will be loaded here -->
+                        </div>
+                        <button class="btn btn-secondary mt-3" onclick="loadMetrics()">
+                            <i class="fas fa-refresh"></i> Refresh Metrics
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2025 LLM Security System. Advanced threat detection for large language models.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-key.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
