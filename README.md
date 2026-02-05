@@ -69,8 +69,7 @@ The **LLM Safety Evaluator** is a robust security tool designed to protect Large
 
 5.  **Access the Dashboard**
     Open your browser and navigate to:
-    [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
+    [http://127.0.0.1:5000](https://llmsafetyevaluator.onrender.com)
 ---
 
 ## 🔍 How to Use
