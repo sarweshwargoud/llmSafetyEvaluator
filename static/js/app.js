@@ -39,6 +39,7 @@ async function analyzePrompt() {
         const result = await response.json();
         displayResults(result);
         updateCharts(result);
+        loadMetrics();
         
     } catch (error) {
         console.error('Error analyzing prompt:', error);
@@ -247,29 +248,41 @@ async function loadMetrics() {
 function displayMetrics(metrics) {
     const metricsContainer = document.getElementById('metricsCards');
     
+    // Handle new nested structure or fallback
+    const session = metrics.session || {
+        total_scans: 0,
+        safe_requests: 0,
+        threats_detected: 0,
+        total_confidence: 0
+    };
+    
+    const total = session.total_scans;
+    const safeRate = total > 0 ? (session.safe_requests / total * 100) : 100;
+    const avgConf = total > 0 ? (session.total_confidence / total * 100) : 0;
+
     const metricsHTML = `
         <div class="col-md-3">
             <div class="metric-card">
-                <span class="metric-value">${(metrics.accuracy * 100).toFixed(1)}%</span>
-                <span class="metric-label">Accuracy</span>
+                <span class="metric-value">${safeRate.toFixed(1)}%</span>
+                <span class="metric-label">Safe Request Rate</span>
             </div>
         </div>
         <div class="col-md-3">
             <div class="metric-card">
-                <span class="metric-value">${(metrics.precision * 100).toFixed(1)}%</span>
-                <span class="metric-label">Precision</span>
+                <span class="metric-value">${session.threats_detected}</span>
+                <span class="metric-label">Threats Detected</span>
             </div>
         </div>
         <div class="col-md-3">
             <div class="metric-card">
-                <span class="metric-value">${(metrics.recall * 100).toFixed(1)}%</span>
-                <span class="metric-label">Recall</span>
+                <span class="metric-value">${avgConf.toFixed(1)}%</span>
+                <span class="metric-label">Avg Confidence</span>
             </div>
         </div>
         <div class="col-md-3">
             <div class="metric-card">
-                <span class="metric-value">${Object.keys(metrics.classification_report).length - 3}</span>
-                <span class="metric-label">Classes</span>
+                <span class="metric-value">${total}</span>
+                <span class="metric-label">Total Scans</span>
             </div>
         </div>
     `;

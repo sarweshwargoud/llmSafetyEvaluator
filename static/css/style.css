@@ -1,45 +1,99 @@
-/* Dark cybersecurity theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+/* Darker cybersecurity theme to match reference */
 :root {
-    --primary-bg: #0a0e27;
-    --secondary-bg: #1a1d3a;
-    --card-bg: #252945;
-    --accent-color: #4ade80;
+    --primary-bg: #020617;
+    /* Darker, almost black blue */
+    --secondary-bg: #0f172a;
+    --card-bg: #1e293b;
+    --accent-color: #c084fc;
+    /* Purple accent */
+    --accent-secondary: #e879f9;
+    /* Pink accent */
     --danger-color: #ef4444;
     --warning-color: #f59e0b;
-    --text-primary: #e2e8f0;
+    --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --border-color: #334155;
 }
 
 body {
-    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+    background: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%);
     color: var(--text-primary);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     min-height: 100vh;
 }
 
 .navbar-dark {
-    background: rgba(10, 14, 39, 0.95) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(2, 6, 23, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .navbar-brand {
-    font-weight: bold;
-    font-size: 1.3rem;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #c084fc, #e879f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-section {
-    padding: 3rem 0;
-    margin-bottom: 2rem;
+    padding: 6rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+    z-index: -1;
+    filter: blur(50px);
 }
 
 .hero-section h1 {
-    background: linear-gradient(135deg, var(--accent-color), #60a5fa);
+    font-weight: 800;
+    font-size: 4.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #c084fc, #e879f9, #c084fc);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    animation: gradient-text 5s ease infinite;
+    text-shadow: 0 0 40px rgba(192, 132, 252, 0.2);
+}
+
+.hero-section .lead {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes gradient-text {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .feature-card {
@@ -63,10 +117,18 @@ body {
 }
 
 .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background: rgba(37, 41, 69, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 25px rgba(74, 222, 128, 0.1);
+    border-color: rgba(74, 222, 128, 0.2);
 }
 
 .card-header {
@@ -75,7 +137,8 @@ body {
     border-radius: 12px 12px 0 0 !important;
 }
 
-.card-header h3, .card-header h4 {
+.card-header h3,
+.card-header h4 {
     margin: 0;
     color: var(--text-primary);
 }
@@ -257,11 +320,11 @@ canvas {
     .hero-section {
         padding: 2rem 0;
     }
-    
+
     .feature-card {
         margin: 0.5rem 0;
     }
-    
+
     .display-4 {
         font-size: 2rem;
     }
