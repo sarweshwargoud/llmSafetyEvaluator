@@ -8,7 +8,7 @@ The **LLM Safety Evaluator** is a robust security tool designed to protect Large
 
 ---
 
-## 🚀 Key Features
+## 🚀 Key Features.
 
 *   **Hybrid Detection Engine**:
     *   **Supervised Learning**: Calibrated Random Forest Classifier to detect known attack patterns (e.g., "Ignore previous instructions", "DAN mode").
